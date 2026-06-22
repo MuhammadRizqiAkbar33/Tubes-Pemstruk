@@ -3,154 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Log App</title>
+    <title>Explore Kalimantan Timur</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1 class="text-center">✈️ Travel Log App</h1>
-        
-        <!-- Menu Navigasi -->
-        <div class="navbar">
-            <button onclick="showPage('add')" id="btn-add" class="nav-btn">+ Tambah</button>
-            <button onclick="showPage('view')" id="btn-view" class="nav-btn">📋 Lihat</button>
-            <button onclick="showPage('edit')" id="btn-edit" class="nav-btn">✏️ Ubah</button>
-            <button onclick="showPage('delete')" id="btn-delete" class="nav-btn">🗑️ Hapus</button>
-            <button onclick="showPage('rekom')" id="btn-rekom" class="nav-btn">🎯 Rekomendasi</button>
-            <button onclick="showPage('statistik')" id="btn-statistik" class="nav-btn">📊 Statistik</button>
+    <!-- HEADER -->
+    <header>
+
+        <div class="logo">
+            KALTIM
         </div>
 
-        <!-- SECTION: TAMBAH CATATAN -->
-        <div id="page-add" class="section">
-            <h2>➕ Tambah Catatan Perjalanan</h2>
-            <form onsubmit="handleAdd(event)">
-                <div class="form-group">
-                    <label>Tanggal</label>
-                    <input type="date" id="inp-tanggal" required>
-                </div>
-                <div class="form-group">
-                    <label>Tujuan</label>
-                    <input type="text" id="inp-tujuan" placeholder="Contoh: Bali" required>
-                </div>
-                <div class="form-group">
-                    <label>Keperluan</label>
-                    <input type="text" id="inp-keperluan" placeholder="Contoh: Liburan" required>
-                </div>
-                <div class="form-group">
-                    <label>Biaya (Rp)</label>
-                    <input type="number" id="inp-biaya" placeholder="Contoh: 2500000" required>
-                </div>
-                <button type="submit" class="btn-primary">💾 Simpan Catatan</button>
-            </form>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#destination">Destination</a></li>
+                <li><a href="#event">Event</a></li>
+            </ul>
+        </nav>
+
+        <div class="language">
+            <select>
+                <option>ID</option>
+                <option>EN</option>
+            </select>
         </div>
 
-        <!-- SECTION: LIHAT CATATAN -->
-        <div id="page-view" class="section">
-            <h2>📋 Daftar Perjalanan</h2>
-            <div class="controls">
-                <input type="text" id="search-input" placeholder="🔍 Cari tujuan..." onkeyup="searchData()">
-                <button onclick="sortData(true)" class="btn-small">⬆️ Termurah</button>
-                <button onclick="sortData(false)" class="btn-small">⬇️ Termahal</button>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+        <div class="hero-overlay">
+
+            <h1>Explore Kalimantan Timur</h1>
+
+            <p>
+                Temukan destinasi wisata, budaya,
+                kuliner dan event terbaik di Kalimantan Timur.
+            </p>
+
+            <a href="#destination" class="btn">
+                Jelajahi Sekarang
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- STATISTIK -->
+    <section class="stats">
+
+        <div class="stat-box">
+            <h2 class="counter" data-target="120">0</h2>
+            <p>Destinasi Wisata</p>
+        </div>
+
+        <div class="stat-box">
+            <h2 class="counter" data-target="45">0</h2>
+            <p>Event Tahunan</p>
+        </div>
+
+        <div class="stat-box">
+            <h2 class="counter" data-target="500">0</h2>
+            <p>UMKM Lokal</p>
+        </div>
+
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+
+        <h2>Tentang Kaltim</h2>
+
+        <div class="about-content">
+
+            <div class="about-icons">
+
+                <div class="icon-box">
+                    🌴
+                    <span>Wisata Alam</span>
+                </div>
+
+                <div class="icon-box">
+                    🎭
+                    <span>Budaya</span>
+                </div>
+
+                <div class="icon-box">
+                    🍜
+                    <span>Kuliner</span>
+                </div>
+
             </div>
-            <table id="table-view">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Tanggal</th>
-                        <th>Tujuan</th>
-                        <th>Keperluan</th>
-                        <th>Biaya</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body"></tbody>
-            </table>
-        </div>
 
-        <!-- SECTION: UBAH CATATAN -->
-        <div id="page-edit" class="section">
-            <h2>✏️ Ubah Catatan</h2>
-            <div class="form-group">
-                <label>Pilih Data</label>
-                <select id="edit-select-index" onchange="fillEditForm()">
-                    <option value="">-- Pilih Nomor --</option>
-                </select>
+            <div class="about-text">
+
+                <p>
+                    Kalimantan Timur merupakan salah satu provinsi
+                    dengan kekayaan alam yang luar biasa. Mulai dari
+                    pantai eksotis, hutan tropis, budaya lokal hingga
+                    kuliner khas yang menarik wisatawan dari berbagai daerah.
+                </p>
+
+                <p>
+                    Website ini hadir sebagai pusat informasi wisata,
+                    event, dan destinasi unggulan Kalimantan Timur.
+                </p>
+
             </div>
-            <hr>
-            <form onsubmit="handleUpdate(event)">
-                <input type="hidden" id="edit-index">
-                <div class="form-group">
-                    <label>Tanggal</label>
-                    <input type="date" id="edit-tanggal">
-                </div>
-                <div class="form-group">
-                    <label>Tujuan</label>
-                    <input type="text" id="edit-tujuan">
-                </div>
-                <div class="form-group">
-                    <label>Keperluan</label>
-                    <input type="text" id="edit-keperluan">
-                </div>
-                <div class="form-group">
-                    <label>Biaya</label>
-                    <input type="number" id="edit-biaya">
-                </div>
-                <button type="submit" class="btn-primary">🔄 Update Data</button>
-            </form>
-        </div>
 
-        <!-- SECTION: HAPUS CATATAN -->
-        <div id="page-delete" class="section">
-            <h2>🗑️ Hapus Catatan</h2>
-            <div class="form-group">
-                <label>Pilih Data yang Ingin Dihapus</label>
-                <select id="delete-select-index">
-                    <option value="">-- Pilih Nomor --</option>
-                </select>
+            <div class="about-image">
+
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800"
+                     alt="Wisata Kaltim">
+
             </div>
-            <button onclick="handleDelete()" class="btn-danger">🗑️ Hapus Sekarang</button>
+
         </div>
 
-        <!-- SECTION: REKOMENDASI -->
-        <div id="page-rekom" class="section">
-            <h2>🎯 Rekomendasi Destinasi</h2>
-            <div class="form-group">
-                <label>Masukkan Budget Maksimal</label>
-                <input type="number" id="budget-input" placeholder="Contoh: 2000000">
+    </section>
+
+    <!-- DESTINATION -->
+    <section class="destination" id="destination">
+
+        <div class="section-title">
+            <h2>Explore Destination</h2>
+        </div>
+
+        <div class="slider-wrapper">
+
+            <button class="prev" onclick="moveSlide(-1)">
+                ❮
+            </button>
+
+            <div class="slider" id="slider">
+
+                <div class="card">
+                    <img src="https://picsum.photos/400/250?1">
+                    <div class="card-body">
+                        <h3>Labuan Cermin</h3>
+                        <p>Berau</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://picsum.photos/400/250?2">
+                    <div class="card-body">
+                        <h3>Pulau Derawan</h3>
+                        <p>Berau</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://picsum.photos/400/250?3">
+                    <div class="card-body">
+                        <h3>Pulau Maratua</h3>
+                        <p>Berau</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://picsum.photos/400/250?4">
+                    <div class="card-body">
+                        <h3>Bukit Bangkirai</h3>
+                        <p>Kukar</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://picsum.photos/400/250?5">
+                    <div class="card-body">
+                        <h3>Pulau Kakaban</h3>
+                        <p>Berau</p>
+                    </div>
+                </div>
+
             </div>
-            <button onclick="rekomendasiDestinasi()" class="btn-primary">🔍 Cari</button>
-            <div id="rekomendasi-result"></div>
+
+            <button class="next" onclick="moveSlide(1)">
+                ❯
+            </button>
+
         </div>
 
-        <!-- SECTION: STATISTIK -->
-        <div id="page-statistik" class="section">
-            <h2>📊 Statistik Perjalanan</h2>
-            <div class="stats-container">
-                <div class="stat-card">
-                    <h3>Total Trip</h3>
-                    <p id="stat-total-trip">0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Total Biaya</h3>
-                    <p id="stat-total-biaya">Rp 0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Rata-rata Biaya</h3>
-                    <p id="stat-rata-biaya">Rp 0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Tujuan Fav</h3>
-                    <p id="stat-fav">-</p>
-                </div>
+    </section>
+
+    <!-- EVENT -->
+    <section class="event" id="event">
+
+        <div class="section-title">
+            <h2>Explore Event</h2>
+        </div>
+
+        <div class="event-grid">
+
+            <div class="event-card">
+                <img src="https://picsum.photos/500/300?11">
+                <h3>Festival Budaya Dayak</h3>
             </div>
-            <button onclick="resetAllData()" class="btn-danger mt-2">⚠️ Reset Semua Data</button>
+
+            <div class="event-card">
+                <img src="https://picsum.photos/500/300?12">
+                <h3>Festival Kuliner Nusantara</h3>
+            </div>
+
+            <div class="event-card">
+                <img src="https://picsum.photos/500/300?13">
+                <h3>Kaltim Expo</h3>
+            </div>
+
         </div>
 
-    </div>
+    </section>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast">Berhasil!</div>
+    <!-- CTA -->
+    <section class="cta">
+
+        <h2>
+            Temukan pengalaman terbaik di Kalimantan Timur
+        </h2>
+
+        <button>
+            Mulai Jelajahi
+        </button>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-column">
+
+            <h2>LOGO</h2>
+
+            <p>
+                Sebagai pedoman wisata,
+                memberikan panduan lengkap
+                untuk menjelajahi destinasi
+                menarik Kalimantan Timur.
+            </p>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h3>Kontak Kami</h3>
+
+            <ul>
+                <li>Alamat</li>
+                <li>0812-3456-7890</li>
+                <li>info@kaltim.com</li>
+            </ul>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h3>Koneksi</h3>
+
+            <ul>
+                <li>Instagram</li>
+                <li>Facebook</li>
+                <li>Twitter</li>
+                <li>Tiktok</li>
+            </ul>
+
+        </div>
+
+    </footer>
 
     <script src="script.js"></script>
+
 </body>
 </html>
