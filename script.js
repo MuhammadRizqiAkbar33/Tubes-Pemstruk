@@ -1,273 +1,373 @@
-// ===========================
-// STICKY HEADER
-// ===========================
-const header = document.querySelector("header");
+/* ============================================================
+   KalimTrip — script.js
+   ============================================================ */
 
-window.addEventListener("scroll", () => {
-    if(window.scrollY > 50){
-        header.classList.add("sticky");
-    }else{
-        header.classList.remove("sticky");
-    }
+let currentLang = "id";
+let activeCity = "Semua";
+let activeCat = "Semua";
+
+document.addEventListener("DOMContentLoaded", () => {
+  initNavbar();
+  initLanguage();
+  applyTranslations();
+  initFilters();
+  renderDestinations();
+  initScrollReveal();
 });
 
+/* ============================================================
+   NAVBAR SCROLL
+============================================================ */
 
-// ===========================
-// SMOOTH SCROLL
-// ===========================
-document.querySelectorAll('nav a').forEach(link => {
+function initNavbar() {
+  const navbar = document.getElementById("navbar");
 
-    link.addEventListener('click', function(e){
+  function handleScroll() {
+    navbar.classList.toggle("solid", window.scrollY > 60);
+  }
 
-        const target = this.getAttribute("href");
+  handleScroll();
 
-        if(target.startsWith("#")){
-            e.preventDefault();
-
-            document.querySelector(target)
-            .scrollIntoView({
-                behavior:"smooth"
-            });
-        }
-    });
-
-});
-
-
-// ===========================
-// HERO TEXT ANIMATION
-// ===========================
-const heroTitle = document.querySelector(".hero h1");
-
-const text = heroTitle.innerText;
-heroTitle.innerText = "";
-
-let index = 0;
-
-function typingEffect(){
-
-    if(index < text.length){
-
-        heroTitle.innerHTML += text.charAt(index);
-
-        index++;
-
-        setTimeout(typingEffect, 100);
-    }
+  window.addEventListener("scroll", handleScroll, {
+    passive: true,
+  });
 }
 
-typingEffect();
+/* ============================================================
+   LANGUAGE
+============================================================ */
 
+function initLanguage() {
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
 
-// ===========================
-// DESTINATION AUTO SLIDER
-// ===========================
-const slider = document.getElementById("slider");
+      const lang = btn.dataset.lang;
 
-function moveSlide(direction){
+      if (lang === currentLang) return;
 
-    slider.scrollBy({
-        left: direction * 300,
-        behavior:"smooth"
+      currentLang = lang;
+
+      document.querySelectorAll(".lang-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.lang === lang);
+      });
+
+      applyTranslations();
+      initFilters();
+      renderDestinations();
     });
-
+  });
 }
 
-setInterval(() => {
+function applyTranslations() {
+  const t = translations[currentLang];
 
-    slider.scrollBy({
-        left:300,
-        behavior:"smooth"
-    });
+  // Text biasa
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
 
-    if(
-        slider.scrollLeft + slider.clientWidth
-        >= slider.scrollWidth - 10
-    ){
-
-        setTimeout(() => {
-
-            slider.scrollTo({
-                left:0,
-                behavior:"smooth"
-            });
-
-        },1500);
+    if (t[key] !== undefined) {
+      el.textContent = t[key];
     }
+  });
 
-},4000);
+  // Text yang mengandung HTML
+  document.querySelectorAll("[data-i18n-html]").forEach(el => {
+    const key = el.dataset.i18nHtml;
 
-
-// ===========================
-// SCROLL REVEAL ANIMATION
-// ===========================
-const reveals = document.querySelectorAll(
-    ".about, .destination, .event, footer"
-);
-
-function revealSection(){
-
-    reveals.forEach(section => {
-
-        const top = section.getBoundingClientRect().top;
-
-        const visible = window.innerHeight - 100;
-
-        if(top < visible){
-            section.classList.add("show");
-        }
-
-    });
+    if (t[key] !== undefined) {
+      el.innerHTML = t[key];
+    }
+  });
 }
 
-window.addEventListener("scroll", revealSection);
-revealSection();
+  /* Text yang mengandung HTML */
+  document.querySelectorAll("[data-i18n-html]").forEach(el => {
 
+    const key = el.dataset.i18nHtml;
 
-// ===========================
-// CARD HOVER EFFECT
-// ===========================
-document.querySelectorAll(".card").forEach(card=>{
-
-    card.addEventListener("mousemove",(e)=>{
-
-        const x = e.offsetX;
-        const y = e.offsetY;
-
-        card.style.transform =
-        `perspective(1000px)
-         rotateY(${(x-100)/20}deg)
-         rotateX(${-(y-100)/20}deg)
-         scale(1.05)`;
-
-    });
-
-    card.addEventListener("mouseleave",()=>{
-
-        card.style.transform =
-        "perspective(1000px) rotateX(0) rotateY(0) scale(1)";
-    });
-
-});
-
-
-// ===========================
-// COUNTER ANIMATION
-// ===========================
-const counters = document.querySelectorAll(".counter");
-
-counters.forEach(counter => {
-
-    const updateCounter = () => {
-
-        const target =
-        +counter.getAttribute("data-target");
-
-        const current =
-        +counter.innerText;
-
-        const increment =
-        target / 100;
-
-        if(current < target){
-
-            counter.innerText =
-            Math.ceil(current + increment);
-
-            setTimeout(updateCounter,20);
-
-        }else{
-
-            counter.innerText = target;
-        }
-
-    };
-
-    updateCounter();
-
-});
-
-
-// ===========================
-// BACK TO TOP BUTTON
-// ===========================
-const topBtn = document.createElement("button");
-
-topBtn.innerHTML = "↑";
-
-topBtn.classList.add("top-btn");
-
-document.body.appendChild(topBtn);
-
-window.addEventListener("scroll",()=>{
-
-    if(window.scrollY > 400){
-
-        topBtn.classList.add("show");
-
-    }else{
-
-        topBtn.classList.remove("show");
+    if (t[key] !== undefined) {
+      el.innerHTML = t[key];
     }
 
-});
+  });
 
-topBtn.addEventListener("click",()=>{
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
+/* ============================================================
+   FILTERS
+============================================================ */
+
+function initFilters() {
+
+  if (
+    typeof cities === "undefined" ||
+    typeof categories === "undefined"
+  ) return;
+
+  const t = translations[currentLang];
+
+  /* CITY */
+  const cityContainer = document.getElementById("city-pills");
+
+  if (cityContainer) {
+
+    cityContainer.innerHTML = "";
+
+    cities.forEach(city => {
+
+      const label =
+        city === "Semua"
+          ? t.allCities
+          : city;
+
+      const btn = document.createElement("button");
+
+      btn.className =
+        "pill" +
+        (city === activeCity ? " active" : "");
+
+      btn.textContent = label;
+      btn.dataset.city = city;
+
+      btn.addEventListener("click", () => {
+
+        activeCity = city;
+
+        cityContainer
+          .querySelectorAll(".pill")
+          .forEach(p => {
+            p.classList.toggle(
+              "active",
+              p.dataset.city === city
+            );
+          });
+
+        renderDestinations();
+      });
+
+      cityContainer.appendChild(btn);
     });
+  }
 
-});
+  /* CATEGORY */
+  const catContainer = document.getElementById("cat-pills");
 
+  if (catContainer) {
 
-// ===========================
-// DARK MODE
-// ===========================
-const darkBtn = document.createElement("button");
+    catContainer.innerHTML = "";
 
-darkBtn.innerHTML = "🌙";
+    categories.forEach(cat => {
 
-darkBtn.classList.add("dark-btn");
+      const label =
+        cat === "Semua"
+          ? t.allCats
+          : cat;
 
-document.body.appendChild(darkBtn);
+      const btn = document.createElement("button");
 
-darkBtn.addEventListener("click",()=>{
+      btn.className =
+        "pill" +
+        (cat === activeCat ? " active" : "");
 
-    document.body.classList.toggle("dark");
+      btn.textContent = label;
+      btn.dataset.cat = cat;
 
-});
+      btn.addEventListener("click", () => {
 
+        activeCat = cat;
 
-// ===========================
-// LANGUAGE SWITCH
-// ===========================
-const translations = {
+        catContainer
+          .querySelectorAll(".pill")
+          .forEach(p => {
+            p.classList.toggle(
+              "active",
+              p.dataset.cat === cat
+            );
+          });
 
-    id:{
-        hero:"Explore Kalimantan Timur",
-        about:"Tentang Kaltim"
+        renderDestinations();
+      });
+
+      catContainer.appendChild(btn);
+    });
+  }
+}
+
+/* ============================================================
+   DESTINATIONS
+============================================================ */
+
+function renderDestinations() {
+  const t = translations[currentLang];
+  const grid = document.getElementById("dest-grid");
+
+  if (!grid) return;
+
+  const categoryEN = {
+    Bahari: "Marine",
+    Alam: "Nature",
+    Margasatwa: "Wildlife",
+    Ekowisata: "Ecotourism",
+    Budaya: "Culture"
+  };
+
+  const filtered = destinations.filter(dest => {
+    const cityMatch =
+      activeCity === "Semua" ||
+      dest.city === activeCity;
+
+    const catMatch =
+      activeCat === "Semua" ||
+      dest.category === activeCat;
+
+    return cityMatch && catMatch;
+  });
+
+  grid.innerHTML = "";
+
+  if (!filtered.length) {
+    grid.innerHTML = `
+      <div class="dest-empty" data-reveal>
+        ${t.noResult}
+      </div>
+    `;
+    initScrollReveal();
+    return;
+  }
+
+  filtered.forEach(dest => {
+
+    const category =
+      currentLang === "en"
+        ? (categoryEN[dest.category] || dest.category)
+        : dest.category;
+
+    const card = document.createElement("div");
+
+    card.className = "dest-card";
+    card.setAttribute("data-reveal", "");
+
+    card.innerHTML = `
+      <div class="dest-img-wrap">
+        <img
+          src="${dest.image}"
+          alt="${dest.name}"
+          loading="lazy"
+        >
+        <span class="dest-cat-badge">
+          ${category}
+        </span>
+      </div>
+
+      <div class="dest-body">
+
+        <div class="dest-city">
+          📍 ${dest.city}
+        </div>
+
+        <h3>${dest.name}</h3>
+
+        <p>${dest.description}</p>
+
+        <div class="dest-meta">
+
+          <div class="dest-meta-row">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2H5z"/>
+            </svg>
+
+            <span>
+              <strong>${t.ticketLabel}:</strong>
+              ${dest.ticket}
+            </span>
+          </div>
+
+          <div class="dest-meta-row">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+
+            <span>
+              <strong>${t.hoursLabel}:</strong>
+              ${dest.hours}
+            </span>
+          </div>
+
+        </div>
+
+        <a
+          class="dest-link"
+          href="${dest.website}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ${t.websiteLabel}
+
+          <svg xmlns="http://www.w3.org/2000/svg"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke="currentColor"
+               stroke-width="2">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  setTimeout(initScrollReveal, 50);
+}
+
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+
+function initScrollReveal() {
+
+  const elements =
+    document.querySelectorAll(
+      "[data-reveal]:not(.is-visible)"
+    );
+
+  if (!elements.length) return;
+
+  const observer = new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+          entry.target.classList.add(
+            "is-visible"
+          );
+
+          observer.unobserve(entry.target);
+        }
+      });
+
     },
-
-    en:{
-        hero:"Explore East Kalimantan",
-        about:"About East Kalimantan"
+    {
+      threshold: 0.12,
     }
+  );
 
-};
-
-const langSelect =
-document.querySelector(".language select");
-
-langSelect.addEventListener("change",()=>{
-
-    const lang = langSelect.value.toLowerCase();
-
-    document.querySelector(".hero h1")
-    .innerText = translations[lang].hero;
-
-    document.querySelector(".about h2")
-    .innerText = translations[lang].about;
-
-});
+  elements.forEach(el => observer.observe(el));
+}
