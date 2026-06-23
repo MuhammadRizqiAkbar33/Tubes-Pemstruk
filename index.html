@@ -1,282 +1,173 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore Kalimantan Timur</title>
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KalimTrip — Wisata Kalimantan Timur</title>
+  <meta name="description" content="Platform rekomendasi wisata Kalimantan Timur — temukan destinasi alam, budaya, dan bahari terbaik di jantung Borneo." />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
+<nav class="navbar" id="navbar">
+  <a href="#hero" class="logo">
+    <span class="logo-kalim">Kaltim</span><span class="logo-trip">Trip</span>
+  </a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#destinasi" data-i18n="navDest">Destinasi</a>
+      <a href="#footer"    data-i18n="navAbout">Tentang</a>
+    </div>
+    <div class="lang-toggle" role="group" aria-label="Pilih Bahasa">
+      <button class="lang-btn active" data-lang="id">ID</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+</nav>
 
-    <!-- HEADER -->
-    <header>
+<!-- ======================================================
+     HERO
+====================================================== -->
+<section class="hero" id="hero">
 
-        <div class="logo">
-            KALTIM
-        </div>
+    <div class="hero-bg">
+        <img src="images/hero.png" alt="Kalimantan Timur">
+    </div>
 
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">Tentang</a></li>
-                <li><a href="#destination">Destination</a></li>
-                <li><a href="#event">Event</a></li>
-            </ul>
-        </nav>
+    <div class="hero-overlay"></div>
 
-        <div class="language">
-            <select>
-                <option>ID</option>
-                <option>EN</option>
-            </select>
-        </div>
+    <div class="hero-content">
 
-    </header>
+        <span
+        class="hero-eyebrow"
+        data-i18n="heroEyebrow">
+            Provinsi Kalimantan Timur
+        </span>
 
-    <!-- HERO -->
-    <section class="hero" id="home">
+        <h1 data-i18n-html="heroTitle">
+            Temukan Sisi<br>
+            Borneo<br>
+            <span>yang Jarang Terlihat</span>
+        </h1>
 
-        <div class="hero-overlay">
+        <p
+        data-i18n="heroSubtitle">
+            KaltimTrip merangkum destinasi terbaik di Kalimantan Timur —
+            dari laut Derawan sampai rimba Bukit Bangkirai.
+        </p>
 
-            <h1>Explore Kalimantan Timur</h1>
+        <a href="#destinasi" class="btn-jelajah" data-i18n="heroBtn">
+            Jelajahi Destinasi ↓
+        </a>
 
-            <p>
-                Temukan destinasi wisata, budaya,
-                kuliner dan event terbaik di Kalimantan Timur.
-            </p>
+    </div>
 
-            <a href="#destination" class="btn">
-                Jelajahi Sekarang
-            </a>
+</section>
 
-        </div>
+<!-- ======================================================
+     DESTINASI
+====================================================== -->
+<section id="destinasi">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <h2 data-i18n="destTitle">Destinasi Unggulan</h2>
+      <p data-i18n="destSubtitle">
+        Pilih destinasi yang sesuai dengan semangat petualanganmu —
+        dari belantara hutan hingga keindahan bawah laut.
+      </p>
+    </div>
+    <div class="filter-wrap" data-reveal>
+      <div class="filter-row">
+        <span class="filter-label" data-i18n="filterCity">Filter Kota:</span>
+        <div class="pills" id="city-pills"></div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label" data-i18n="filterCat">Kategori:</span>
+        <div class="pills" id="cat-pills"></div>
+      </div>
+    </div>
+    <div class="dest-grid" id="dest-grid"></div>
+  </div>
+</section>
 
-    </section>
+<!-- Motif Divider -->
+<div class="motif-line" aria-hidden="true"></div>
 
-    <!-- STATISTIK -->
-    <section class="stats">
-
-        <div class="stat-box">
-            <h2 class="counter" data-target="120">0</h2>
-            <p>Destinasi Wisata</p>
-        </div>
-
-        <div class="stat-box">
-            <h2 class="counter" data-target="45">0</h2>
-            <p>Event Tahunan</p>
-        </div>
-
-        <div class="stat-box">
-            <h2 class="counter" data-target="500">0</h2>
-            <p>UMKM Lokal</p>
-        </div>
-
-    </section>
-
-    <!-- ABOUT -->
-    <section class="about" id="about">
-
-        <h2>Tentang Kaltim</h2>
-
-        <div class="about-content">
-
-            <div class="about-icons">
-
-                <div class="icon-box">
-                    🌴
-                    <span>Wisata Alam</span>
-                </div>
-
-                <div class="icon-box">
-                    🎭
-                    <span>Budaya</span>
-                </div>
-
-                <div class="icon-box">
-                    🍜
-                    <span>Kuliner</span>
-                </div>
-
-            </div>
-
-            <div class="about-text">
-
-                <p>
-                    Kalimantan Timur merupakan salah satu provinsi
-                    dengan kekayaan alam yang luar biasa. Mulai dari
-                    pantai eksotis, hutan tropis, budaya lokal hingga
-                    kuliner khas yang menarik wisatawan dari berbagai daerah.
-                </p>
-
-                <p>
-                    Website ini hadir sebagai pusat informasi wisata,
-                    event, dan destinasi unggulan Kalimantan Timur.
-                </p>
-
-            </div>
-
-            <div class="about-image">
-
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800"
-                     alt="Wisata Kaltim">
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- DESTINATION -->
-    <section class="destination" id="destination">
-
-        <div class="section-title">
-            <h2>Explore Destination</h2>
-        </div>
-
-        <div class="slider-wrapper">
-
-            <button class="prev" onclick="moveSlide(-1)">
-                ❮
-            </button>
-
-            <div class="slider" id="slider">
-
-                <div class="card">
-                    <img src="https://picsum.photos/400/250?1">
-                    <div class="card-body">
-                        <h3>Labuan Cermin</h3>
-                        <p>Berau</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="https://picsum.photos/400/250?2">
-                    <div class="card-body">
-                        <h3>Pulau Derawan</h3>
-                        <p>Berau</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="https://picsum.photos/400/250?3">
-                    <div class="card-body">
-                        <h3>Pulau Maratua</h3>
-                        <p>Berau</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="https://picsum.photos/400/250?4">
-                    <div class="card-body">
-                        <h3>Bukit Bangkirai</h3>
-                        <p>Kukar</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="https://picsum.photos/400/250?5">
-                    <div class="card-body">
-                        <h3>Pulau Kakaban</h3>
-                        <p>Berau</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <button class="next" onclick="moveSlide(1)">
-                ❯
-            </button>
-
-        </div>
-
-    </section>
-
-    <!-- EVENT -->
-    <section class="event" id="event">
-
-        <div class="section-title">
-            <h2>Explore Event</h2>
-        </div>
-
-        <div class="event-grid">
-
-            <div class="event-card">
-                <img src="https://picsum.photos/500/300?11">
-                <h3>Festival Budaya Dayak</h3>
-            </div>
-
-            <div class="event-card">
-                <img src="https://picsum.photos/500/300?12">
-                <h3>Festival Kuliner Nusantara</h3>
-            </div>
-
-            <div class="event-card">
-                <img src="https://picsum.photos/500/300?13">
-                <h3>Kaltim Expo</h3>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- CTA -->
-    <section class="cta">
-
-        <h2>
-            Temukan pengalaman terbaik di Kalimantan Timur
-        </h2>
-
-        <button>
-            Mulai Jelajahi
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+<footer class="footer" id="footer">
+  <div class="footer-container">
+    <!-- Brand -->
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-icon">🌿</div>
+        <em style="color:var(--emas);font-style:normal;">Kalim</em><span style="color:var(--krem)">Trip</span>
+      </div>
+      <p data-i18n="footerTagline">
+        Sebagai platform wisatawan, kami merekomendasikan tempat-tempat terbaik
+        untuk menjelajahi destinasi di Kalimantan Timur.
+      </p>
+    </div>
+    <!-- Kontak Kami -->
+    <div class="footer-col">
+      <h4 data-i18n="footerContact">Kontak Kami</h4>
+      <ul>
+        <li>
+          <span class="li-icon">✉</span>
+          <span><span data-i18n="footerEmail">Email</span> : hello@kalimtrip.id</span>
+        </li>
+        <li>
+          <span class="li-icon">📞</span>
+          <span><span data-i18n="footerPhone">Tlp</span> : +62 542 000 000</span>
+        </li>
+        <li>
+          <span class="li-icon">💬</span>
+          <span><span data-i18n="footerWhatsapp">WA</span> : +62 812 3456 7890</span>
+        </li>
+      </ul>
+    </div>
+    <!-- Koneksi / Sosial -->
+    <div class="footer-col">
+      <h4 data-i18n="footerConnect">Koneksi</h4>
+      <div class="footer-social">
+        <!-- Instagram -->
+        <button class="social-btn" title="Instagram" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.31.975.975 1.247 2.242 1.31 3.608.058 1.265.069 1.645.069 4.849s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.31 3.608-.975.975-2.242 1.247-3.608 1.31-1.265.058-1.645.069-4.849.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.31-.975-.975-1.247-2.242-1.31-3.608C2.175 15.747 2.163 15.367 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.31-3.608C4.518 2.567 5.785 2.295 7.15 2.233 8.416 2.175 8.796 2.163 12 2.163zm0-2.163c-3.259 0-3.667.014-4.947.072-1.628.074-3.078.5-4.214 1.636C1.703 2.844 1.277 4.294 1.203 5.922 1.145 7.202 1.131 7.61 1.131 12c0 4.39.014 4.798.072 6.078.074 1.628.5 3.078 1.636 4.214 1.136 1.136 2.586 1.562 4.214 1.636 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.628-.074 3.078-.5 4.214-1.636 1.136-1.136 1.562-2.586 1.636-4.214.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.074-1.628-.5-3.078-1.636-4.214C19.025 1.703 17.575 1.277 15.947 1.203 14.667 1.145 14.259 1.131 12 1.131zm0 5.838a5.031 5.031 0 100 10.062A5.031 5.031 0 0012 6.969zm0 8.299a3.268 3.268 0 110-6.536 3.268 3.268 0 010 6.536zm6.406-9.623a1.175 1.175 0 100 2.35 1.175 1.175 0 000-2.35z"/>
+          </svg>
         </button>
+        <!-- Twitter/X -->
+        <button class="social-btn" title="Twitter" aria-label="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </button>
+        <!-- Facebook -->
+        <button class="social-btn" title="Facebook" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+          </svg>
+        </button>
+        <!-- TikTok -->
+        <button class="social-btn" title="TikTok" aria-label="TikTok">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p data-i18n="footerCopyright">© 2026 Hak Milik Mahasiswa Jurusan Sistem Informasi ITK. All rights reserved.</p>
+  </div>
+</footer>
 
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-
-        <div class="footer-column">
-
-            <h2>LOGO</h2>
-
-            <p>
-                Sebagai pedoman wisata,
-                memberikan panduan lengkap
-                untuk menjelajahi destinasi
-                menarik Kalimantan Timur.
-            </p>
-
-        </div>
-
-        <div class="footer-column">
-
-            <h3>Kontak Kami</h3>
-
-            <ul>
-                <li>Alamat</li>
-                <li>0812-3456-7890</li>
-                <li>info@kaltim.com</li>
-            </ul>
-
-        </div>
-
-        <div class="footer-column">
-
-            <h3>Koneksi</h3>
-
-            <ul>
-                <li>Instagram</li>
-                <li>Facebook</li>
-                <li>Twitter</li>
-                <li>Tiktok</li>
-            </ul>
-
-        </div>
-
-    </footer>
-
-    <script src="script.js"></script>
-
+<!-- Scripts -->
+<script src="data.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
